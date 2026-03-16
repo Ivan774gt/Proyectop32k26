@@ -2,7 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Vista;
+ package Vista;
+
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -65,6 +68,11 @@ public class MantenimientoAsignacion extends javax.swing.JFrame {
         });
 
         btnlimpiar.setText("Limpiar ");
+        btnlimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnlimpiarActionPerformed(evt);
+            }
+        });
 
         tablaVendedores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -139,7 +147,7 @@ public class MantenimientoAsignacion extends javax.swing.JFrame {
                 .addComponent(btneliminar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnlimpiar)
-                .addContainerGap(165, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -159,13 +167,48 @@ public class MantenimientoAsignacion extends javax.swing.JFrame {
     }//GEN-LAST:event_btneliminarActionPerformed
 
     private void btnregistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregistrarActionPerformed
+
+
+        // 1. Obtener los textos de los combos
+       String user = cbxusuario.getSelectedItem().toString();
+       String perfil = cbxperfil.getSelectedItem().toString();
+
+       // 2. Validar que no sea la opción por defecto
+       if (cbxusuario.getSelectedIndex() > 0 && cbxperfil.getSelectedIndex() > 0) {
+        DefaultTableModel modelo = (DefaultTableModel) tablaVendedores.getModel();
+        
+        // 3. Agregar fila a la tabla (Simulado)
+        // Usamos split si el combo tiene el formato "1 - Nombre"
+        Object[] nuevaFila = {
+            user.split("-")[0].trim(), // ID Usuario
+            user,                      // Nombre Usuario
+            perfil.split("-")[0].trim(),// ID Perfil
+            perfil                     // Nombre Perfil
+        };
+        
+        modelo.addRow(nuevaFila);
+        JOptionPane.showMessageDialog(this, "Asignación agregada a la tabla local.");
+    } else {
+        JOptionPane.showMessageDialog(this, "Por favor seleccione un usuario y un perfil.");
+    }
+
+        
         // TODO add your handling code here:
     }//GEN-LAST:event_btnregistrarActionPerformed
+
+    private void btnlimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlimpiarActionPerformed
+
+        cbxusuario.setSelectedIndex(0);
+    cbxperfil.setSelectedIndex(0);
+    txtbuscado.setText("");
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnlimpiarActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
