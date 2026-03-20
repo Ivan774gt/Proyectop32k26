@@ -7,7 +7,7 @@ package Vista;
 
 import Controlador.clsSeguridad;
 import Controlador.clsBitacora;
-import Controlador.clsUsuario;
+import Controlador.ClsUsuario;
 import Controlador.clsUsuarioConectado;
 import Modelo.BitacoraDAO;
 import Modelo.Conexion;
@@ -51,9 +51,9 @@ int codigoAplicacion=10;
         modelo.addColumn("Teléfono");
         modelo.addColumn("Dirección");
         modelo.addColumn("Tipo Usuario");
-        clsUsuario usuario = new clsUsuario();
+        ClsUsuario usuario = new ClsUsuario();
         //VendedorDAO vendedorDAO = new VendedorDAO();
-        List<clsUsuario> listaUsuarios = usuario.getListadoUsuarios();
+        List<ClsUsuario> listaUsuarios = usuario.getListadoUsuarios();
         tablaUsuarios.setModel(modelo);
         String[] dato = new String[10];
         for (int i = 0; i < listaUsuarios.size(); i++) {
@@ -447,7 +447,7 @@ int codigoAplicacion=10;
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
         int registrosBorrados=0;
-        clsUsuario usuario = new clsUsuario();
+        ClsUsuario usuario = new ClsUsuario();
         usuario.setUsuId(Integer.parseInt(txtbuscado.getText()));
         registrosBorrados=usuario.setBorrarUsuario(usuario);
         JOptionPane.showMessageDialog(null, "Registro Borrado\n", 
@@ -460,7 +460,7 @@ int codigoAplicacion=10;
         bitacoraRegistro.setAplcodigo(codigoAplicacion);
         bitacoraRegistro.setBitaccion("DEL");
         BitacoraDAO bitacoradao = new BitacoraDAO();
-        resultadoBitacora = bitacoradao.insert(bitacoraRegistro);            
+        resultadoBitacora = bitacoradao.insert(usuario.getUsuId(), codigoAplicacion, "ACCION");      
         
         limpiarTextos();
     }//GEN-LAST:event_btnEliminarActionPerformed
@@ -469,7 +469,7 @@ int codigoAplicacion=10;
         String cont=txtContrasena.getText(),conf=txtConfContraseña.getText();
         if(cont.equals(conf)){
             clsSeguridad c = new clsSeguridad();
-            clsUsuario usuario = new clsUsuario();
+            ClsUsuario usuario = new ClsUsuario();
             usuario.setUsuNombre(txtNombre.getText());
             usuario.setUsuContrasena(c.encode(txtContrasena.getText()));
                     
@@ -491,7 +491,7 @@ int codigoAplicacion=10;
             bitacoraRegistro.setAplcodigo(codigoAplicacion);
             bitacoraRegistro.setBitaccion("INS");
             BitacoraDAO bitacoradao = new BitacoraDAO();
-            resultadoBitacora = bitacoradao.insert(bitacoraRegistro);            
+            resultadoBitacora = bitacoradao.insert(usuario.getUsuId(), codigoAplicacion, "INS");         
             llenadoDeTablas();
             limpiarTextos();
         }else{
@@ -510,7 +510,7 @@ int codigoAplicacion=10;
             // TODO add your handling code here:       
         
         clsSeguridad c = new clsSeguridad();
-        clsUsuario usuario = new clsUsuario();
+        ClsUsuario usuario = new ClsUsuario();
         //usuario.setNombreUsuario(txtbuscado.getText());        
         usuario.setUsuId(Integer.parseInt(txtbuscado.getText()));        
         usuario = usuario.getBuscarInformacionUsuarioPorId(usuario);
@@ -532,7 +532,7 @@ int codigoAplicacion=10;
 //        // TODO add your handling code here:
         
         clsSeguridad c = new clsSeguridad();
-        clsUsuario usuario = new clsUsuario();
+        ClsUsuario usuario = new ClsUsuario();
         usuario.setUsuId(Integer.parseInt(txtbuscado.getText()));
         usuario.setUsuNombre(txtNombre.getText());
         usuario.setUsuContrasena(c.encode(txtContrasena.getText()));
@@ -552,12 +552,8 @@ int codigoAplicacion=10;
         llenadoDeTablas();
         
         int resultadoBitacora=0;
-        clsBitacora bitacoraRegistro = new clsBitacora();
-        bitacoraRegistro.setUsucodigo(usuario.getUsuId());
-        bitacoraRegistro.setAplcodigo(codigoAplicacion);
-        bitacoraRegistro.setBitaccion("UPD");
         BitacoraDAO bitacoradao = new BitacoraDAO();
-        resultadoBitacora = bitacoradao.insert(bitacoraRegistro);            
+    resultadoBitacora = bitacoradao.insert(usuario.getUsuId(), codigoAplicacion, "ACCION");
         
         limpiarTextos();
     }//GEN-LAST:event_btnModificarActionPerformed

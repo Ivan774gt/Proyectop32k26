@@ -5,7 +5,7 @@
  */
 package Modelo;
 
-import Controlador.clsUsuario;
+import Controlador.ClsUsuario;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,12 +23,12 @@ public class UsuarioDAO {
     private static final String SQL_SELECT_NOMBRE = "SELECT usuid, usunombre, usucontrasena, usuultimasesion, usuestatus, usunombrereal, usucorreoe, usutelefono, usudireccion, tipuid FROM usuario WHERE usunombre = ?";
     private static final String SQL_SELECT_ID = "SELECT usuid, usunombre, usucontrasena, usuultimasesion, usuestatus, usunombrereal, usucorreoe, usutelefono, usudireccion, tipuid FROM usuario WHERE usuid = ?";     
 
-    public List<clsUsuario> consultaUsuarios() {
+    public List<ClsUsuario> consultaUsuarios() {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         
-        List<clsUsuario> usuarios = new ArrayList<>();
+        List<ClsUsuario> usuarios = new ArrayList<>();
         try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_SELECT);
@@ -44,7 +44,7 @@ public class UsuarioDAO {
                 String telefono= rs.getString("usutelefono");
 		String direccion= rs.getString("usudireccion");
 		int tipoid= rs.getInt("tipuid");
-                clsUsuario usuario = new clsUsuario();
+                ClsUsuario usuario = new ClsUsuario();
                 usuario.setUsuId(id);
                 usuario.setUsuNombre(nombre);
                 usuario.setUsuContrasena(contrasena);
@@ -67,7 +67,7 @@ public class UsuarioDAO {
         return usuarios;
     }
 
-    public int ingresaUsuarios(clsUsuario usuario) {
+    public int ingresaUsuarios(ClsUsuario usuario) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
@@ -96,7 +96,7 @@ public class UsuarioDAO {
         return rows;
     }
 
-    public int actualizaUsuarios(clsUsuario usuario) {
+    public int actualizaUsuarios(ClsUsuario usuario) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
@@ -128,7 +128,7 @@ public class UsuarioDAO {
         return rows;
     }
 
-    public int borrarUsuarios(clsUsuario usuario) {
+    public int borrarUsuarios(ClsUsuario usuario) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
@@ -150,7 +150,7 @@ public class UsuarioDAO {
         return rows;
     }
 
-    public clsUsuario consultaUsuariosPorNombre(clsUsuario usuario) {
+    public ClsUsuario consultaUsuariosPorNombre(ClsUsuario usuario) {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -172,7 +172,7 @@ public class UsuarioDAO {
 		String telefono= rs.getString("usutelefono");
 		String direccion= rs.getString("usudireccion");
 		int tipoid= rs.getInt("tipuid");
-                //usuario = new clsUsuario();
+                //usuario = new ClsUsuario();
                 usuario.setUsuId(id);
                 usuario.setUsuNombre(nombre);
                 usuario.setUsuContrasena(contrasena);
@@ -197,7 +197,7 @@ public class UsuarioDAO {
         //return personas;  // Si se utiliza un ArrayList
         return usuario;
     }
-    public clsUsuario consultaUsuariosPorId(clsUsuario usuario) {
+    public ClsUsuario consultaUsuariosPorId(ClsUsuario usuario) {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -219,7 +219,7 @@ public class UsuarioDAO {
 		String telefono= rs.getString("usutelefono");
 		String direccion= rs.getString("usudireccion");
 		int tipoid= rs.getInt("tipuid");
-                //usuario = new clsUsuario();
+                //usuario = new ClsUsuario();
                 usuario.setUsuId(id);
                 usuario.setUsuNombre(nombre);
                 usuario.setUsuContrasena(contrasena);

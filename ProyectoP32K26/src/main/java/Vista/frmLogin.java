@@ -9,7 +9,7 @@ package Vista;
 import Controlador.clsBitacora;
 import Modelo.BitacoraDAO;
 import Controlador.clsSeguridad;
-import Controlador.clsUsuario;
+import Controlador.ClsUsuario;
 import Controlador.clsUsuarioConectado;
 
 import java.awt.HeadlessException;
@@ -166,7 +166,7 @@ public class frmLogin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "NO PUEDEN HABER CAMPOS VACIOS", "ERROR", JOptionPane.                  ERROR_MESSAGE);
         } else {
             try {
-                clsUsuario usuario = new clsUsuario();
+                ClsUsuario usuario = new ClsUsuario();
           
                 usuario.setUsuNombre(txtUsuario.getText().trim());
                 // Recuperación de información a través de otro objeto
